@@ -10,3 +10,18 @@ do</br>
 mysql -uroot -p12345678 wxc_test</wxc/data/$line</br>
 echo “导入文件$line 完成”</br>
 done</br>
+1、查询有课程大于80分又有课程低于60分的学生的学号</br>
+select studentNo FROM student WHERE studentNo IN (SELECT studentNo FROM student_course WHERE grade>80 AND grade<60 );</br>
+2、 查询各门课程去掉一个最高分和最低分后的平均成绩</br>
+select avg(grade) from student_course     
+  where grade   not   in (select  top 1 grade  from  student_course order  by  grade ASC)   
+  and  grade  not in (select  top   1  grade  from  student_course order  by  grade  desc)</br>
+1、编写一段sql，查找a、b表都有的userid</br>
+SELECT userid  FROM a b WHERE a.userid=b.userid;</br>
+2）编写一段sql，查找a中有b中没有的userid</br>
+select distinct a.userid from  a where a.userid not in (select userid from b);</br>
+
+1、编写一个 SQL 查询，查找 Person 表中所有重复的电子邮箱</br>
+SELECT Email FROM Person GROUP BY Email HAVING COUNT(Email)>1;</br>
+2、编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary）
+select max(Salary) as SecondHighestSalary from Employee where Salary<(select max(Salary) from Employee)
